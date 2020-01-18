@@ -13,10 +13,12 @@ public class Stack {
 		stack[++top] = data;
 	}
 
-	public void pop() {
+	public int pop() {
 		if(top == -1)
 			throw new RuntimeException("Stack is empty.");
+		int popVal = stack[top];
 		stack[top--] = 0;
+		return popVal;
 	}
 
 	public int size() {
@@ -37,7 +39,7 @@ public class Stack {
 		stack.push(25);
 		stack.push(35);
 		System.out.println(stack.size());
-		stack.pop();
+		System.out.println(stack.pop());
 		stack.pop();
 		stack.pop();
 		stack.pop();
