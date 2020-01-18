@@ -14,11 +14,17 @@ public class Stack {
 	}
 
 	public int pop() {
-		if(top == -1)
+		if (top == -1)
 			throw new RuntimeException("Stack is empty.");
 		int popVal = stack[top];
 		stack[top--] = 0;
 		return popVal;
+	}
+
+	public int peek() {
+		if (top == -1)
+			throw new RuntimeException("Stack is empty.");
+		return stack[top];
 	}
 
 	public int size() {
@@ -26,7 +32,7 @@ public class Stack {
 	}
 
 	public void reSize() {
-		if ((float) size()/(float) stack.length >= loadFactor)
+		if ((float) size() / (float) stack.length >= loadFactor)
 			stack = Arrays.copyOf(stack, stack.length * 2);
 	}
 
@@ -42,6 +48,8 @@ public class Stack {
 		System.out.println(stack.pop());
 		stack.pop();
 		stack.pop();
+		System.out.println(stack.size());
+		System.out.println(stack.peek());
 		stack.pop();
 		stack.pop();
 		System.out.println(stack.size());
