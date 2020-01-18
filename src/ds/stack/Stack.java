@@ -4,8 +4,9 @@ import java.util.Arrays;
 
 public class Stack {
 
-	private float loadFactor = 0.75f;
-	private int capacity = 5;
+	private final static float loadFactor = 0.75f;
+	private final static int defaultCapacity = 5;
+	private int capacity = defaultCapacity;
 	private int top = -1;
 	private int[] stack = new int[capacity];
 
@@ -26,8 +27,8 @@ public class Stack {
 	private void shrink() {
 		if (size() <= capacity / 4) {
 			capacity = capacity / 2;
-			if (capacity < 5)
-				capacity = 5;
+			if (capacity < defaultCapacity)
+				capacity = defaultCapacity;
 			int[] newStackArr = new int[capacity];
 			System.arraycopy(stack, 0, newStackArr, 0, size());
 		}
