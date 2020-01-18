@@ -24,16 +24,6 @@ public class Stack {
 		return popVal;
 	}
 
-	private void shrink() {
-		if (size() <= capacity / 4) {
-			capacity = capacity / 2;
-			if (capacity < defaultCapacity)
-				capacity = defaultCapacity;
-			int[] newStackArr = new int[capacity];
-			System.arraycopy(stack, 0, newStackArr, 0, size());
-		}
-	}
-
 	public int peek() {
 		if (top == -1)
 			throw new RuntimeException("Stack is empty.");
@@ -51,6 +41,16 @@ public class Stack {
 		}
 	}
 
+	private void shrink() {
+		if (size() <= capacity / 4) {
+			capacity = capacity / 2;
+			if (capacity < defaultCapacity)
+				capacity = defaultCapacity;
+			int[] newStackArr = new int[capacity];
+			System.arraycopy(stack, 0, newStackArr, 0, size());
+		}
+	}
+	
 	public static void main(String[] args) {
 		Stack stack = new Stack();
 		System.out.println("size: " + stack.size());
