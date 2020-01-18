@@ -5,11 +5,12 @@ import java.util.Arrays;
 public class Stack {
 
 	private float loadFactor = 0.75f;
+	private int capacity = 5;
 	private int top = -1;
-	private int[] stack = new int[5];
+	private int[] stack = new int[capacity];
 
 	public void push(int data) {
-		reSize();
+		expand();
 		stack[++top] = data;
 	}
 
@@ -18,7 +19,18 @@ public class Stack {
 			throw new RuntimeException("Stack is empty.");
 		int popVal = stack[top];
 		stack[top--] = 0;
+		shrink();
 		return popVal;
+	}
+
+	private void shrink() {
+		if (size() <= capacity / 4) {
+			capacity = capacity / 2;
+			if (capacity < 5)
+				capacity = 5;
+			int[] newStackArr = new int[capacity];
+			System.arraycopy(stack, 0, newStackArr, 0, size());
+		}
 	}
 
 	public int peek() {
@@ -31,27 +43,46 @@ public class Stack {
 		return top + 1;
 	}
 
-	public void reSize() {
-		if ((float) size() / (float) stack.length >= loadFactor)
-			stack = Arrays.copyOf(stack, stack.length * 2);
+	public void expand() {
+		if ((float) size() / (float) capacity >= loadFactor) {
+			capacity = capacity * 2;
+			stack = Arrays.copyOf(stack, capacity);
+		}
 	}
 
 	public static void main(String[] args) {
 		Stack stack = new Stack();
-		System.out.println(stack.size());
+		System.out.println("size: " + stack.size());
+		System.out.println("capacity: " + stack.capacity);
 		stack.push(10);
 		stack.push(20);
 		stack.push(15);
 		stack.push(25);
 		stack.push(35);
-		System.out.println(stack.size());
+		stack.push(35);
+		stack.push(35);
+		stack.push(35);
+		stack.push(35);
+		stack.push(35);
+		stack.push(35);
+		System.out.println("size: " + stack.size());
+		System.out.println("capacity: " + stack.capacity);
 		System.out.println(stack.pop());
 		stack.pop();
 		stack.pop();
-		System.out.println(stack.size());
+		stack.pop();
+		stack.pop();
+		System.out.println("size: " + stack.size());
+		System.out.println("capacity: " + stack.capacity);
+		stack.pop();
+		stack.pop();
+		stack.pop();
+		System.out.println("size: " + stack.size());
+		System.out.println("capacity: " + stack.capacity);
 		System.out.println(stack.peek());
 		stack.pop();
 		stack.pop();
-		System.out.println(stack.size());
+		System.out.println("size: " + stack.size());
+		System.out.println("capacity: " + stack.capacity);
 	}
 }
